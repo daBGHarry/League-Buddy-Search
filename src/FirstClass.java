@@ -1,11 +1,17 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 
 
@@ -25,18 +31,24 @@ public class FirstClass {
 		setUsername(keyboard.nextLine().toLowerCase());
 		System.out.print("Please enter your buddy's League of Legends username : ");
 		setBuddy(keyboard.nextLine().toLowerCase());
-
 		
-		findMatches(getUsername(), getBuddy());
+		
+		findMatches(usernameSetupForUrl(getUsername()), buddySetupForUrl(getBuddy()));
 		
 	}
 	
 	public void findMatches(String username, String buddy) {
 		try {
-			Document doc = Jsoup.connect("http://na.op.gg/summoner/userName=" + usernameSetupForUrl(username)).get();
-			Elements listOfGames = doc.getElementsByAttributeValue("class", "GameSimpleStats");
-			Elements listOfPlayers;
-			Elements matchPlayers;
+			WebDriver webdriver = new FirefoxDriver();
+			webdriver.get("http://na.op.gg/summoner/userName=" + usernameSetupForUrl(username));
+			WebElement renewData = webdriver.findElement(By.className("ladda-button _refreshSummonerInfo summonerRefreshButton"));
+			renewData.click();
+			webdriver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
+			
+//			Document doc = Jsoup.connect("http://na.op.gg/summoner/userName=" + usernameSetupForUrl(username)).get();
+//			Elements listOfGames = doc.getElementsByAttributeValue("class", "GameSimpleStats");
+//			Elements listOfPlayers;
+//			Elements matchPlayers;
 			
 			for (Element match : listOfGames) {
 				
