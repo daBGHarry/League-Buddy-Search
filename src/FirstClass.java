@@ -24,15 +24,11 @@ public class FirstClass {
 		// If they take too long prompt the user to see if they are still there.
 		setUsername(keyboard.nextLine().toLowerCase());
 		System.out.print("Please enter your buddy's League of Legends username : ");
-		// Add time here to count the amount of time the user is taking to enter their username.
-		// If they take too long prompt the user to see if they are still there.
-//			if (true)
-//				throw new AreYouThereException();
 		setBuddy(keyboard.nextLine().toLowerCase());
-//			if (true)
-//				throw new AreYouThereException();
+
 		
 		findMatches(getUsername(), getBuddy());
+		
 	}
 	
 	public void findMatches(String username, String buddy) {
@@ -52,14 +48,20 @@ public class FirstClass {
 	}
 	
 	public String usernameSetupForUrl(String username) {
-		username = username.replace(' ', '+');
-		setUsername(username);
+		username = username.trim();
+		if (username.contains(" ")) {
+			username = username.replace(' ', '+');
+			setUsername(username);
+		}
 		return username;
 	}
 	
 	public String buddySetupForUrl(String buddy) {
-		buddy = buddy.replace(' ', '+');
-		setBuddy(buddy);
+		buddy = buddy.trim();
+		if (buddy.contains(" ")) {
+			buddy = buddy.replace(' ', '+');
+			setBuddy(buddy);
+		}
 		return buddy;
 	}
 	
