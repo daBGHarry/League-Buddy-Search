@@ -53,21 +53,16 @@ public class FirstClass {
 		List<WebElement> LOGames = webdriver.findElements(By.className("GameSimpleStats"));
 		List<WebElement> LOPlayers;
 		List<WebElement> LOMatches;
+		int matchCounter = 0;
 		
 		for (WebElement game : LOGames) {
-			LOPlayers = game.findElements(By.className("Summoners"));
+			LOPlayers = game.findElements(By.className("summonerName"));
 			for (WebElement player : LOPlayers) {
-				if ()
+				if (player.findElement(By.tagName("a")).getText().equals(buddy)) {
+					matchCounter++;
+				}
 			}
 		}
-//			Document doc = Jsoup.connect("http://na.op.gg/summoner/userName=" + usernameSetupForUrl(username)).get();
-//			Elements listOfGames = doc.getElementsByAttributeValue("class", "GameSimpleStats");
-//			Elements listOfPlayers;
-//			Elements matchPlayers;
-		
-
-		
-
 	}
 	
 	public String usernameSetupForUrl(String username) {
