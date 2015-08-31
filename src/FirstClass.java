@@ -23,6 +23,7 @@ public class FirstClass {
 	
 	private String username;
 	private String buddy;
+	private int numMatches;
 	
 	public void Setup() throws AreYouThereException {
 		Scanner keyboard = new Scanner(System.in);
@@ -36,11 +37,13 @@ public class FirstClass {
 		setBuddy(keyboard.nextLine().toLowerCase());
 		
 		
-		findMatches(usernameSetupForUrl(getUsername()), buddySetupForUrl(getBuddy()));
+		setNumMatches(findMatches(usernameSetupForUrl(getUsername()), buddySetupForUrl(getBuddy())));
 		
+		System.out.println("*********************************************");
+		System.out.println("You have played a total of " + getNumMatches() + " matches with " + getBuddy());
 	}
 	
-	public void findMatches(String username, String buddy) {
+	public int findMatches(String username, String buddy) {
 		WebDriver webdriver = new FirefoxDriver();
 		webdriver.get("http://na.op.gg/summoner/userName=" + usernameSetupForUrl(username));
 		WebElement renewData = webdriver.findElement(By.className("ladda-button _refreshSummonerInfo summonerRefreshButton"));
@@ -63,6 +66,7 @@ public class FirstClass {
 				}
 			}
 		}
+		return matchCounter;
 	}
 	
 	public String usernameSetupForUrl(String username) {
@@ -91,6 +95,10 @@ public class FirstClass {
 		return buddy;
 	}
 	
+	public int getNumMatches() {
+		return numMatches;
+	}
+	
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -98,5 +106,8 @@ public class FirstClass {
 	public void setBuddy(String buddy) {
 		this.buddy = buddy;
 	}
-
+	
+	public void setNumMatches(int numMatches) {
+		this.numMatches = numMatches;
+	}
 }
