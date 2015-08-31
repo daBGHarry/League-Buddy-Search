@@ -25,7 +25,13 @@ public class FirstClass {
 	private String buddy;
 	private int numMatches;
 	
-	public void Setup() throws AreYouThereException {
+	public FirstClass() {
+		username = "";
+		buddy = "";
+		numMatches = 0;
+	}
+	
+	public void Setup() {
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println("Hello and welcome to the League Buddy Finder.");
 		System.out.println("*********************************************");
